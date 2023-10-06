@@ -1,20 +1,25 @@
+import "package:dash_eats/view/cadastro.dart";
 import 'package:flutter/material.dart';
+import "package:device_preview/device_preview.dart";
+
+import "view/login.dart";
 
 void main() {
-  runApp(const MainApp());
-}
+  //iniciar a execução do App
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => MaterialApp(
+        useInheritedMediaQuery: true,
+        debugShowCheckedModeBanner: false,
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('develop!!'),
-        ),
+        initialRoute: 'login',
+        routes: {
+          'login': (context) => loginView(), 
+          "cadastro":(context) => cadastroView()
+        },
       ),
-    );
-  }
+    ),
+
+  );
 }
