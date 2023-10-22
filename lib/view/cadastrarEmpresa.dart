@@ -6,9 +6,9 @@ TextEditingController txtController2 = TextEditingController();
 TextEditingController txtController3 = TextEditingController();
 TextEditingController txtController4 = TextEditingController();
 
-class cadastroView extends StatelessWidget {
-  const cadastroView({super.key});
-
+class cadastrarEmpresaView extends StatelessWidget {
+  const cadastrarEmpresaView({super.key});
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,35 +18,24 @@ class cadastroView extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 80, left: 20, right: 20),
-              child: InputField("E-mail", txtController),
+              child: InputField("E-mail ou Telefone", txtController),
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: InputField("CPF: 000.000.000-00", txtController2),
+              child: InputField("CNPJ: 000.000.000/0000-00", txtController2),
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: InputField("Nome de usuario", txtController3),
+              child: InputField("Senha", txtController3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: InputField("Senha", txtController4),
+              child: InputField("Nome da Empresa", txtController4),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Login(txtController, txtController2, txtController3,
-                  txtController4),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-              child: BotaoLoginRedes(
-                  "Continuar com Google", "lib/assets/google.png"),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: BotaoLoginRedes(
-                  "Continuar com Facebook", "lib/assets/facebook.png"),
-            ),
+                padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                child: Login(txtController, txtController2, txtController3,
+                    txtController4))
           ],
         ),
       ),
@@ -82,7 +71,7 @@ class Login extends StatelessWidget {
             ),
             minimumSize: Size(20, 60)),
         child: Text(
-          'Criar Conta',
+          'Finalizar Cadastro',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
