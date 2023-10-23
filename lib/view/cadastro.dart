@@ -54,13 +54,55 @@ class cadastroView extends StatelessWidget {
   }
 }
 
+class dadosCadastro {
+    String? email;
+   String? senha ;
+  String cpf;
+   String  nome;
+  dadosCadastro({required this.email, required this.senha,required this.cpf,required this.nome});
+}
+  List<dadosCadastro> dadosCadastrados = [];
+
 class Login extends StatelessWidget {
+
   Login(this.email, this.cpf, this.nomeUsuario, this.senha);
 
   TextEditingController email = TextEditingController();
   TextEditingController cpf = TextEditingController();
   TextEditingController nomeUsuario = TextEditingController();
   TextEditingController senha = TextEditingController();
+
+
+  void cadastrarUsuario(String nome, String email, String cpf, String senha) {
+    dadosCadastro novoCadastro = dadosCadastro(email: email,senha: senha,cpf: cpf,nome: nome);
+    dadosCadastrados.add(novoCadastro);
+  }
+
+  bool validarEmail(String email) {
+    String padraoEmail = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+    RegExp regex = RegExp(padraoEmail);
+    return regex.hasMatch(email);
+  }
+
+  void _mostrarAlertDialog(BuildContext context, String mensagem) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Erro de validação'),
+          content: Text(mensagem),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext build) {
@@ -71,9 +113,29 @@ class Login extends StatelessWidget {
           String password = senha.text;
           String document = cpf.text;
           String username = nomeUsuario.text;
-          // Faça algo com o nome de usuário e senha, como validar ou autenticar
-          print(
-              'Email: $emailString, Password: $password, Nome de usuario: $username, CPF: $document ');
+
+          if (!validarEmail(emailString)) {
+            _mostrarAlertDialog(build, "Por favor, insira um e-mail válido.");
+            return;
+          }
+
+          if(!RegExp(r'^[0-9]+$').hasMatch(document)){
+            _mostrarAlertDialog(build, "Insira um documento valido");
+            return;
+          }
+
+          if (emailString.isEmpty ||
+              password.isEmpty ||
+              document.isEmpty ||
+              username.isEmpty) {
+            _mostrarAlertDialog(build, "Por favor, preencha todos os campos");
+            return;
+          }
+          
+          cadastrarUsuario(username, emailString, document, password);
+          Navigator.pushNamed(build,"login");
+          _mostrarAlertDialog(build, "Conta criada com sucesso");
+          
         },
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
