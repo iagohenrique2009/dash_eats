@@ -1,7 +1,10 @@
 import "package:dash_eats/view/cadastrarEmpresa.dart";
 import "package:dash_eats/view/cadastro.dart";
+import "package:dash_eats/view/editEnd.dart";
+import "package:dash_eats/view/editRest.dart";
 import "package:dash_eats/view/esqueceuSenha.dart";
 import "package:dash_eats/view/inicio.dart";
+import "package:dash_eats/view/perfil.dart";
 import 'package:flutter/material.dart';
 import "package:device_preview/device_preview.dart";
 
@@ -22,6 +25,10 @@ void main() {
           "esqueceuSenha": (context) => esqueceuSenhaView(),
           'cadastrarEmpresa': (context) => cadastrarEmpresaView(),
           'inicio': (context) => inicioView(),
+          
+          'perfil': (context) => perfilView(),
+          'editEnd': (context) => editEndView(),
+          'editRest': (context) => editRestView(),
         },
       ),
     ),
