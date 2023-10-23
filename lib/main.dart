@@ -5,8 +5,13 @@ import "package:dash_eats/view/editRest.dart";
 import "package:dash_eats/view/esqueceuSenha.dart";
 import "package:dash_eats/view/inicio.dart";
 import "package:dash_eats/view/perfil.dart";
+import "package:dash_eats/view/pesquisa.dart";
+import "package:dash_eats/view/sobre.dart";
+import "package:dash_eats/view/trocarsenha.dart";
 import 'package:flutter/material.dart';
 import "package:device_preview/device_preview.dart";
+import 'package:collection/collection.dart';
+
 
 import "view/login.dart";
 
@@ -29,6 +34,8 @@ void main() {
           'perfil': (context) => perfilView(),
           'editEnd': (context) => editEndView(),
           'editRest': (context) => editRestView(),
+          'pesquisa': (context) => pesquisaView(),
+          'sobre': (context) => sobreView()
         },
       ),
     ),

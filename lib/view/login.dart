@@ -1,8 +1,9 @@
-import 'dart:js';
 
+import 'package:collection/collection.dart';
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 
 class loginView extends StatelessWidget {
   const loginView({super.key});
@@ -112,8 +113,53 @@ class TextoUnderlineHyperlink extends StatelessWidget {
   }
 }
 
+
+
+
+
 class Login extends StatelessWidget {
   Login(this.log, this.senha);
+
+
+  void _mostrarAlertDialog(BuildContext context, String mensagem) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Erro de validação'),
+          content: Text(mensagem),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+void fazerLogin(BuildContext context){ 
+
+          String username = log.text;
+          String password = senha.text;
+
+  dadosCadastro? usuario = dadosCadastrados.firstWhereOrNull(
+      (u) => u.email == username && u.senha == password,
+    );
+   if (usuario == null) {
+      _mostrarAlertDialog(context, 'email ou senha incorretos!');
+      return;
+    }
+    else{
+      Navigator.pushNamed(context, 'inicio');
+    }
+}
+
+
 
   TextEditingController log = TextEditingController();
   TextEditingController senha = TextEditingController();
@@ -125,7 +171,7 @@ class Login extends StatelessWidget {
           // Adicione a lógica de login aqui
           String username = log.text;
           String password = senha.text;
-          Navigator.pushNamed(build, 'inicio');
+          fazerLogin(build);
           print('Username: $username, Password: $password');
         },
         style: ElevatedButton.styleFrom(

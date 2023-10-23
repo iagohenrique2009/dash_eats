@@ -1,12 +1,14 @@
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:dash_eats/view/login.dart';
-import 'package:dash_eats/view/trocarsenha.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
 
-class esqueceuSenhaView extends StatelessWidget {
-  const esqueceuSenhaView({super.key});
+class trocarSenhaView extends StatelessWidget {
+   final String email;
+  const trocarSenhaView({super.key, required this.email});
+
+
   @override
   Widget build(BuildContext context) {
     TextEditingController txtController = TextEditingController();
@@ -18,7 +20,7 @@ class esqueceuSenhaView extends StatelessWidget {
           children: [
             Padding(padding:EdgeInsets.all(50),
             child: Text(
-          'Insira o email usado na criação da conta abaixo para restaurar senha',
+          'Insira a nova senha abaixo',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
@@ -30,11 +32,11 @@ class esqueceuSenhaView extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 80, left: 20, right: 20),
-              child: InputField("E-mail ", txtController),
+              child: InputField("Nova Senha ", txtController),
             ),
             Padding(
             padding: EdgeInsets.only(top: 80, left: 20, right: 20),
-            child: Login(txtController),
+            child: trocarsenha(txtController,email),
             )
           ],
         ),
@@ -42,8 +44,9 @@ class esqueceuSenhaView extends StatelessWidget {
   }
 }
 
-class Login extends StatelessWidget {
-  Login(this.log);
+class trocarsenha extends StatelessWidget {
+  trocarsenha(this.senha,this.email);
+  String email;
 
 
   void _mostrarAlertDialog(BuildContext context, String mensagem) {
@@ -56,7 +59,7 @@ class Login extends StatelessWidget {
           actions: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pushNamed(context, 'login');
               },
               child: Text('OK'),
             ),
@@ -67,26 +70,20 @@ class Login extends StatelessWidget {
   }
 
 
-void fazerLogin(BuildContext context){ 
+void novaSenha(BuildContext context){ 
 
-          String username = log.text;
-          String password = senha.text;
+          String newPassword = senha.text;
+          String username =email;
 
-  dadosCadastro? usuario = dadosCadastrados.firstWhereOrNull(
-      (u) => u.email == username,
-    );
-   if (usuario == null) {
-      _mostrarAlertDialog(context, 'email não existe!');
-      return;
-    }
-    else{
-      Navigator.push(context,  MaterialPageRoute(
-      builder: (context) => trocarSenhaView(email: 'Hello',),
-    ));
-    }
+
+          int index = dadosCadastrados.indexWhere((element) => element.email!.contains("aa")); 
+
+          print(index);
+          dadosCadastrados[index].senha= newPassword;
+          _mostrarAlertDialog(context, "Senha trocada com sucesso!");
+          
 }
 
-  TextEditingController log = TextEditingController();
   TextEditingController senha = TextEditingController();
 
   @override
@@ -94,10 +91,9 @@ void fazerLogin(BuildContext context){
     return ElevatedButton(
         onPressed: () {
           // Adicione a lógica de login aqui
-          String username = log.text;
           String password = senha.text;
-          fazerLogin(build);
-          print('Username: $username');
+          novaSenha(build);
+          print('Password: $password');
         },
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -106,40 +102,7 @@ void fazerLogin(BuildContext context){
             ),
             minimumSize: Size(20, 50)),
         child: Text(
-          'Restaurar a Senha',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w400,
-            height: 0,
-          ),
-        ));
-  }
-}
-
-class EsqueceuSenha extends StatelessWidget {
-  EsqueceuSenha(this.email);
-
-  TextEditingController email = TextEditingController();
-  @override
-  Widget build(BuildContext build) {
-    return ElevatedButton(
-        onPressed: () {
-          // Adicione a lógica de login aqui
-          String emailString = email.text;
-
-          print(
-              'Email: $emailString');
-        },
-        style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
-            ),
-            minimumSize: Size(20, 60)),
-        child: Text(
-          'Criar Conta',
+          'Trocar a senha',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,

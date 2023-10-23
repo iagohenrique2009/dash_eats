@@ -70,7 +70,7 @@ class Login extends StatelessWidget {
                   BorderRadius.circular(50.0), // Define a forma da borda
             ),
             minimumSize: Size(20, 60)),
-        child: Text(
+        child: const Text(
           'Finalizar Cadastro',
           style: TextStyle(
             color: Colors.black,
@@ -82,3 +82,5 @@ class Login extends StatelessWidget {
         ));
   }
 }
+
+
