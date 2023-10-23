@@ -109,7 +109,7 @@ class rodape extends StatefulWidget {
 
 
 
-int cindex =0;
+int cindex =1;
 class rodapeState extends State<rodape> {
   
 
