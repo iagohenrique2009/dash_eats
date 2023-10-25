@@ -90,7 +90,6 @@ void novaSenha(BuildContext context){
   Widget build(BuildContext build) {
     return ElevatedButton(
         onPressed: () {
-          // Adicione a lógica de login aqui
           String password = senha.text;
           novaSenha(build);
           print('Password: $password');
@@ -98,7 +97,7 @@ void novaSenha(BuildContext context){
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
+                  BorderRadius.circular(50.0), 
             ),
             minimumSize: Size(20, 50)),
         child: Text(

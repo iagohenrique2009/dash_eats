@@ -1,3 +1,6 @@
+import 'dart:js';
+
+import 'package:dash_eats/view/cadastro.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 
@@ -44,10 +47,10 @@ class cadastrarEmpresaView extends StatelessWidget {
 }
 
 class Login extends StatelessWidget {
-  Login(this.email, this.cpf, this.nomeUsuario, this.senha);
+  Login(this.email, this.cnpj, this.nomeUsuario, this.senha);
 
   TextEditingController email = TextEditingController();
-  TextEditingController cpf = TextEditingController();
+  TextEditingController cnpj = TextEditingController();
   TextEditingController nomeUsuario = TextEditingController();
   TextEditingController senha = TextEditingController();
 
@@ -58,16 +61,16 @@ class Login extends StatelessWidget {
           // Adicione a lógica de login aqui
           String emailString = email.text;
           String password = senha.text;
-          String document = cpf.text;
+          String document = cnpj.text;
           String username = nomeUsuario.text;
-          // Faça algo com o nome de usuário e senha, como validar ou autenticar
-          print(
-              'Email: $emailString, Password: $password, Nome de usuario: $username, CPF: $document ');
+          
+          validarEmpresa(username, emailString, document, password, build);
+
         },
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
+                  BorderRadius.circular(50.0),
             ),
             minimumSize: Size(20, 60)),
         child: const Text(
@@ -82,5 +85,41 @@ class Login extends StatelessWidget {
         ));
   }
 }
+
+  bool validarEmail(String email) {
+    String padraoEmail = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+    RegExp regex = RegExp(padraoEmail);
+    return regex.hasMatch(email);
+  }
+
+
+  void validarEmpresa(String nome, String email, String cnpj, String senha,BuildContext build) {
+
+              if (!validarEmail(email)) {
+            mostrarAlertDialog(build, "Por favor, insira um e-mail válido.","Erro de email");
+            return;
+          }
+
+          if(!RegExp(r'^[0-9]+$').hasMatch(cnpj)){
+            mostrarAlertDialog(build, "Insira um documento valido","Erro de documento");
+            return;
+          }
+
+          if (email.isEmpty ||
+              senha.isEmpty ||
+              cnpj.isEmpty ||
+              nome.isEmpty) {
+            mostrarAlertDialog(build, "Por favor, preencha todos os campos","Erro de validação");
+            return;
+          }
+                Navigator.of(build)
+    .pushNamedAndRemoveUntil('login', (Route<dynamic> route) => false);
+            mostrarAlertDialog(build, "entraremos em contato para validar e formalizar a criação", "Sucesso");
+            return;
+
+
+
+         
+  }
 
 

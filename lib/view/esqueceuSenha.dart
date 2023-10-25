@@ -93,7 +93,6 @@ void fazerLogin(BuildContext context){
   Widget build(BuildContext build) {
     return ElevatedButton(
         onPressed: () {
-          // Adicione a lógica de login aqui
           String username = log.text;
           String password = senha.text;
           fazerLogin(build);
@@ -102,7 +101,7 @@ void fazerLogin(BuildContext context){
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
+                  BorderRadius.circular(50.0), 
             ),
             minimumSize: Size(20, 50)),
         child: Text(
@@ -126,7 +125,7 @@ class EsqueceuSenha extends StatelessWidget {
   Widget build(BuildContext build) {
     return ElevatedButton(
         onPressed: () {
-          // Adicione a lógica de login aqui
+
           String emailString = email.text;
 
           print(
@@ -135,7 +134,7 @@ class EsqueceuSenha extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
+                  BorderRadius.circular(50.0),
             ),
             minimumSize: Size(20, 60)),
         child: Text(

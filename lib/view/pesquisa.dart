@@ -1,8 +1,10 @@
 import 'package:dash_eats/view/inicio.dart';
+import 'package:dash_eats/view/produto.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:math';
 
 TextEditingController txt = TextEditingController();
 
@@ -55,38 +57,54 @@ class MyImageListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var valor =Random().nextInt(10)+20;
+    var produto ='Produto: ${Random().nextInt(5)}';
+
     return InkWell(
-      onTap: () {
-        // Adicione o código que deseja executar quando o box for clicado
-        print('Box clicado!');
-      },
       child: SizedBox(
 
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
       
       ClipRRect(
         borderRadius:BorderRadius.circular(100),
         child: Image.network(
         imageUrl,
-        width: 150,
-        height: 150,
-        fit: BoxFit.cover, // Isso faz a imagem preencher completamente o espaço do ClipOval
+        width: 130,
+        height: 130,
+        fit: BoxFit.cover, 
 
       ),
       ),
-      Column(
-        children: [
-          Text('Imagem'),
-          Text("R\$:100")
-        ],
+      Padding(
+        padding: EdgeInsets.only(right: 40),
+        child: Column(
+          children: [
+            Text(
+                    '${produto}',
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)),
+            Text(
+                    'Valor: R\$${valor}' ,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)),
+          ],
+        ),
       )
         
       
 
-      ],)
-    ));
+      ]
+      ,)
+
+    ),    onTap: () {
+        Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => produtoView(
+                  valor: valor.toDouble(), nome: produto,
+                )));
+      });
   }
 }
 
@@ -129,7 +147,7 @@ class PesquisaBarra extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide(
-              color: Colors.black, // Cor da borda quando o campo está em foco
+              color: Colors.black, 
               width: 2.0,
             ),
           ),

@@ -1,11 +1,14 @@
 import "package:dash_eats/view/cadastrarEmpresa.dart";
 import "package:dash_eats/view/cadastro.dart";
+import "package:dash_eats/view/carrinho.dart";
 import "package:dash_eats/view/editEnd.dart";
 import "package:dash_eats/view/editRest.dart";
+import "package:dash_eats/view/empresa.dart";
 import "package:dash_eats/view/esqueceuSenha.dart";
 import "package:dash_eats/view/inicio.dart";
 import "package:dash_eats/view/perfil.dart";
 import "package:dash_eats/view/pesquisa.dart";
+import "package:dash_eats/view/produto.dart";
 import "package:dash_eats/view/sobre.dart";
 import "package:dash_eats/view/trocarsenha.dart";
 import 'package:flutter/material.dart';
@@ -35,7 +38,10 @@ void main() {
           'editEnd': (context) => editEndView(),
           'editRest': (context) => editRestView(),
           'pesquisa': (context) => pesquisaView(),
-          'sobre': (context) => sobreView()
+          'sobre': (context) => sobreView(),
+          'carrinho':(context) => carrinhoView(),
+          'produto':(context) => produtoView(valor: 0,nome: ""),
+          'empresa':(context) => empresaView(),
         },
       ),
     ),

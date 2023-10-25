@@ -1,5 +1,6 @@
+import 'package:dash_eats/view/login.dart';
+import 'package:dash_eats/view/perfil.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
 
 TextEditingController txtController = TextEditingController();
 TextEditingController txtController2 = TextEditingController();
@@ -26,7 +27,7 @@ class cadastroView extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: InputField("Nome de usuario", txtController3),
+              child: InputField("Nome", txtController3),
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -34,19 +35,9 @@ class cadastroView extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: Login(txtController, txtController2, txtController3,
+              child: CadastroUsuario(txtController, txtController2, txtController3,
                   txtController4),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 40, left: 20, right: 20),
-              child: BotaoLoginRedes(
-                  "Continuar com Google", "lib/assets/google.png"),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: BotaoLoginRedes(
-                  "Continuar com Facebook", "lib/assets/facebook.png"),
-            ),
+            )
           ],
         ),
       ),
@@ -63,9 +54,9 @@ class dadosCadastro {
 }
   List<dadosCadastro> dadosCadastrados = [];
 
-class Login extends StatelessWidget {
+class CadastroUsuario extends StatelessWidget {
 
-  Login(this.email, this.cpf, this.nomeUsuario, this.senha);
+  CadastroUsuario(this.email, this.cpf, this.nomeUsuario, this.senha);
 
   TextEditingController email = TextEditingController();
   TextEditingController cpf = TextEditingController();
@@ -75,6 +66,7 @@ class Login extends StatelessWidget {
 
   void cadastrarUsuario(String nome, String email, String cpf, String senha) {
     dadosCadastro novoCadastro = dadosCadastro(email: email,senha: senha,cpf: cpf,nome: nome);
+    controllerNome.text =novoCadastro.nome;
     dadosCadastrados.add(novoCadastro);
   }
 
@@ -84,43 +76,24 @@ class Login extends StatelessWidget {
     return regex.hasMatch(email);
   }
 
-  void _mostrarAlertDialog(BuildContext context, String mensagem) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Erro de validação'),
-          content: Text(mensagem),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+ 
 
   @override
   Widget build(BuildContext build) {
     return ElevatedButton(
         onPressed: () {
-          // Adicione a lógica de login aqui
           String emailString = email.text;
           String password = senha.text;
           String document = cpf.text;
           String username = nomeUsuario.text;
 
           if (!validarEmail(emailString)) {
-            _mostrarAlertDialog(build, "Por favor, insira um e-mail válido.");
+            mostrarAlertDialog(build, "Por favor, insira um e-mail válido.","Erro de email");
             return;
           }
 
           if(!RegExp(r'^[0-9]+$').hasMatch(document)){
-            _mostrarAlertDialog(build, "Insira um documento valido");
+            mostrarAlertDialog(build, "Insira um documento valido","Erro de documento");
             return;
           }
 
@@ -128,19 +101,21 @@ class Login extends StatelessWidget {
               password.isEmpty ||
               document.isEmpty ||
               username.isEmpty) {
-            _mostrarAlertDialog(build, "Por favor, preencha todos os campos");
+            mostrarAlertDialog(build, "Por favor, preencha todos os campos","Erro de validação");
             return;
           }
           
           cadastrarUsuario(username, emailString, document, password);
           Navigator.pushNamed(build,"login");
-          _mostrarAlertDialog(build, "Conta criada com sucesso");
+          mostrarAlertDialog(build, "Conta criada com sucesso","Sucesso");
           
         },
+
+
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
+                  BorderRadius.circular(50.0), 
             ),
             minimumSize: Size(20, 60)),
         child: Text(
@@ -155,3 +130,22 @@ class Login extends StatelessWidget {
         ));
   }
 }
+ void mostrarAlertDialog(BuildContext context, String mensagem,String titulo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(titulo),
+          content: Text(mensagem),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }

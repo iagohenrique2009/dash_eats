@@ -21,7 +21,7 @@ class loginView extends StatelessWidget {
         child: ListView(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 80, left: 20, right: 20),
+              padding: EdgeInsets.only(top: 40, left: 20, right: 20),
               child: InputField("E-mail", txtController),
             ),
             Padding(
@@ -53,7 +53,7 @@ class loginView extends StatelessWidget {
                   "Continuar com Facebook", "lib/assets/facebook.png"),
             ),
             Padding(
-              padding: EdgeInsets.all(80),
+              padding: EdgeInsets.only(left:80,right: 80,top:50),
               child: TextoUnderlineHyperlink(
                   "Cadastrar Empresa", "cadastrarEmpresa"),
             )
@@ -92,7 +92,6 @@ class TextoUnderlineHyperlink extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navegar para a outra tela quando o texto é clicado
         Navigator.pushNamed(context, view);
       },
       child: RichText(
@@ -101,8 +100,8 @@ class TextoUnderlineHyperlink extends StatelessWidget {
           style: TextStyle(
             decoration: TextDecoration.underline,
             decorationColor:
-                const Color.fromARGB(255, 0, 0, 0), // Cor da linha underline
-            decorationThickness: 1.0, // Espessura da linha underline
+                const Color.fromARGB(255, 0, 0, 0), 
+            decorationThickness: 1.0, 
             fontSize: 20,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w400,
@@ -112,34 +111,8 @@ class TextoUnderlineHyperlink extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
 class Login extends StatelessWidget {
   Login(this.log, this.senha);
-
-
-  void _mostrarAlertDialog(BuildContext context, String mensagem) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Erro de validação'),
-          content: Text(mensagem),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
 
 void fazerLogin(BuildContext context){ 
@@ -151,7 +124,7 @@ void fazerLogin(BuildContext context){
       (u) => u.email == username && u.senha == password,
     );
    if (usuario == null) {
-      _mostrarAlertDialog(context, 'email ou senha incorretos!');
+      mostrarAlertDialog(context, 'email ou senha incorretos!',"Erro de Login");
       return;
     }
     else{
@@ -177,7 +150,7 @@ void fazerLogin(BuildContext context){
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(50.0), // Define a forma da borda
+                  BorderRadius.circular(50.0), 
             ),
             minimumSize: Size(20, 50)),
         child: Text(
@@ -203,7 +176,6 @@ class BotaoLoginRedes extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          // Adicione a lógica do botão aqui
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xFFD9D9D9),
@@ -254,7 +226,7 @@ class InputField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide(
-              color: Colors.black, // Cor da borda quando o campo está em foco
+              color: Colors.black, 
               width: 2.0,
             ),
           ),

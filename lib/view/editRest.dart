@@ -92,6 +92,8 @@ class editRestViewState extends State<editRestView> {
     );
   }
 
+  
+
   caixaDialogo(context) {
     return showDialog(
       context: context,
@@ -141,3 +143,4 @@ class editRestViewState extends State<editRestView> {
     );
   }
 }
+

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dash_eats/view/inicio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,6 +45,23 @@ class sobreView extends StatelessWidget {
               'Versão 1.0.0',
               style: TextStyle(fontSize: 18.0),
             ),
+            SizedBox(height: 10.0),
+            Column(
+              children: [
+                  Text("Iago Henrique Marques De Oliveira"),
+                  Image.asset('lib/assets/iago.png',
+                  height: 150.0,
+          fit: BoxFit.cover,
+                  ),
+             SizedBox(height: 10.0),
+            Text("Iury Henrique Monteiro"),
+            Image.asset('lib/assets/iury.png',
+            height:150.0,
+          fit: BoxFit.cover,
+            )
+              ],
+            ),
+
           ],
         ),
       ),
