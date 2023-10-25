@@ -102,7 +102,7 @@ class MyImageListItem extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => produtoView(
-                  valor: valor.toDouble(), nome: produto,
+                  valor: valor.toDouble(), nome: produto, imagem: imageUrl,
                 )));
       });
   }

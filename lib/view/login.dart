@@ -66,7 +66,8 @@ class loginView extends StatelessWidget {
 
 AppBar AppBarDashEats() {
   return AppBar(
-    title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+    title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+    children: [
       Container(
           child: Text('DashEats',
               style: GoogleFonts.getFont(
@@ -74,7 +75,10 @@ AppBar AppBarDashEats() {
                 color: Colors.black,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-              )))
+              ))),
+      Image.asset('lib/assets/logo.jpg',
+                  height: 100.0,
+          fit: BoxFit.cover,)
     ]),
     backgroundColor: Color.fromARGB(255, 207, 10, 10),
     iconTheme: IconThemeData(color: Colors.black),
@@ -141,7 +145,7 @@ void fazerLogin(BuildContext context){
   Widget build(BuildContext build) {
     return ElevatedButton(
         onPressed: () {
-          // Adicione a lógica de login aqui
+
           String username = log.text;
           String password = senha.text;
           fazerLogin(build);

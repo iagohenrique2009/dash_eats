@@ -122,7 +122,6 @@ class editRestViewState extends State<editRestView> {
             ),
             TextButton(
               onPressed: () {
-                //Adicionar um novo Item na lista
                 setState(() {
                   lista.add(
                     rest(txtTitulo.text,),

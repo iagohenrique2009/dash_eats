@@ -258,12 +258,12 @@ class AppDrawer extends StatelessWidget {
   }
 }
 
-void produto(BuildContext context){
+void produto(BuildContext context,String img){
     Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => produtoView(
-                  valor: 10, nome: "Produto Inicio",
+                  valor: 10, nome: "Produto Inicio", imagem:img ,
                 )));
 }
 
@@ -322,6 +322,12 @@ class carroselEstabelecimentos extends StatelessWidget {
 }
 
 class carroselRecomendados extends StatelessWidget {
+  var img= ["https://media.istockphoto.com/id/1146683159/pt/foto/mini-meat-pastels-on-wood-background.jpg?s=2048x2048&w=is&k=20&c=389zfNglDaMto6z6ssPg8w_7TvhA6dpexBGg5iQypvA=",
+  "https://media.istockphoto.com/id/823381982/pt/foto/mortadella-sandwich.jpg?s=2048x2048&w=is&k=20&c=PD2AIzCwMTcMmNpLldwKLJwEo_rMmy_zgqD3MUxDsC4=",
+  "https://media.istockphoto.com/id/1140646840/pt/foto/mother-giving-healthy-vegan-dessert-snacks-to-toddler-child-concept-of-healthy-sweets-for.jpg?s=2048x2048&w=is&k=20&c=7FQZlST_jGzGBK3nsIbbFOBK_8JZ-tXuu_aaov4F19E=",
+  "https://media.istockphoto.com/id/1309352410/pt/foto/cheeseburger-with-tomato-and-lettuce-on-wooden-board.jpg?s=2048x2048&w=is&k=20&c=vOX__q55jfX2CvNxeVtm5x3K57uh49im62WtJDz7eBA="
+
+  ];
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -329,34 +335,34 @@ class carroselRecomendados extends StatelessWidget {
         GestureDetector(
           child: Container(
               child: Image.network(
-                  "https://media.istockphoto.com/id/1146683159/pt/foto/mini-meat-pastels-on-wood-background.jpg?s=2048x2048&w=is&k=20&c=389zfNglDaMto6z6ssPg8w_7TvhA6dpexBGg5iQypvA=",
+                  img[0],
                   alignment: Alignment.topCenter,
                 )),
-                onTap: () => produto(context),
+                onTap: () => produto(context,img[0]),
         ),
         GestureDetector(
           child: Container(
               child: Image.network(
-            "https://media.istockphoto.com/id/823381982/pt/foto/mortadella-sandwich.jpg?s=2048x2048&w=is&k=20&c=PD2AIzCwMTcMmNpLldwKLJwEo_rMmy_zgqD3MUxDsC4=",
+            img[1],
             alignment: Alignment.topCenter,
           )),
-          onTap: () => produto(context),
+          onTap: () => produto(context,img[1]),
         ),
         GestureDetector(
           child: Container(
               child: Image.network(
-            "https://media.istockphoto.com/id/1140646840/pt/foto/mother-giving-healthy-vegan-dessert-snacks-to-toddler-child-concept-of-healthy-sweets-for.jpg?s=2048x2048&w=is&k=20&c=7FQZlST_jGzGBK3nsIbbFOBK_8JZ-tXuu_aaov4F19E=",
+            img[2],
             alignment: Alignment.topCenter,
           )),
-          onTap: () => produto(context),
+          onTap: () => produto(context,img[2]),
         ),
         GestureDetector(
           child: Container(
               child: Image.network(
-            "https://media.istockphoto.com/id/1309352410/pt/foto/cheeseburger-with-tomato-and-lettuce-on-wooden-board.jpg?s=2048x2048&w=is&k=20&c=vOX__q55jfX2CvNxeVtm5x3K57uh49im62WtJDz7eBA=",
+           img[3],
             alignment: Alignment.topCenter,
           )),
-          onTap: () => produto(context),
+          onTap: () => produto(context,img[3]),
         )
       ],
       options: CarouselOptions(
