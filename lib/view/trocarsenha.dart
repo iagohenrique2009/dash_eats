@@ -1,7 +1,6 @@
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:dash_eats/view/login.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
 
 
 class trocarSenhaView extends StatelessWidget {
