@@ -76,7 +76,7 @@ void novaSenha(BuildContext context){
           String username =email;
 
 
-          int index = dadosCadastrados.indexWhere((element) => element.email!.contains("aa")); 
+          int index = dadosCadastrados.indexWhere((element) => element.email!.contains(email)); 
 
           print(index);
           dadosCadastrados[index].senha= newPassword;
