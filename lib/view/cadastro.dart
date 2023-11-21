@@ -1,3 +1,6 @@
+import 'dart:js';
+
+import 'package:dash_eats/controller/cadastro_controller.dart';
 import 'package:dash_eats/view/login.dart';
 import 'package:dash_eats/view/perfil.dart';
 import 'package:flutter/material.dart';
@@ -64,10 +67,8 @@ class CadastroUsuario extends StatelessWidget {
   TextEditingController senha = TextEditingController();
 
 
-  void cadastrarUsuario(String nome, String email, String cpf, String senha) {
-    dadosCadastro novoCadastro = dadosCadastro(email: email,senha: senha,cpf: cpf,nome: nome);
-    controllerNome.text =novoCadastro.nome;
-    dadosCadastrados.add(novoCadastro);
+  void cadastrarUsuario(BuildContext context,String nome, String email, String cpf, String senha) {
+    cadastroController().criarConta(context, nome, email, senha, cpf);
   }
 
   bool validarEmail(String email) {
@@ -105,7 +106,7 @@ class CadastroUsuario extends StatelessWidget {
             return;
           }
           
-          cadastrarUsuario(username, emailString, document, password);
+          cadastrarUsuario(build,username, emailString, document, password);
           Navigator.pushNamed(build,"login");
           mostrarAlertDialog(build, "Conta criada com sucesso","Sucesso");
           

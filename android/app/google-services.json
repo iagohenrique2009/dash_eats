@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220915547615",
+    "project_id": "dash-eats-63093",
+    "storage_bucket": "dash-eats-63093.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220915547615:android:9b25b430a781558124d86a",
+        "android_client_info": {
+          "package_name": "com.example.dash_eats"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeEO0Jn1rQAoK_49pxJ3-OsqUtFJPPKDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

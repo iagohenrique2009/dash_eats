@@ -1,5 +1,6 @@
 
 import 'package:collection/collection.dart';
+import 'package:dash_eats/controller/login_controller.dart';
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -123,17 +124,7 @@ void fazerLogin(BuildContext context){
 
           String username = log.text;
           String password = senha.text;
-
-  dadosCadastro? usuario = dadosCadastrados.firstWhereOrNull(
-      (u) => u.email == username && u.senha == password,
-    );
-   if (usuario == null) {
-      mostrarAlertDialog(context, 'email ou senha incorretos!',"Erro de Login");
-      return;
-    }
-    else{
-      Navigator.pushNamed(context, 'inicio');
-    }
+  loginController().login(context, username, password);
 }
 
 

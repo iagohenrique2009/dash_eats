@@ -1,3 +1,4 @@
+import 'package:dash_eats/controller/login_controller.dart';
 import 'package:dash_eats/view/pesquisa.dart';
 import 'package:dash_eats/view/produto.dart';
 import 'package:flutter/material.dart';
@@ -15,35 +16,42 @@ class inicioView extends StatelessWidget {
     return Scaffold(
       appBar: AppBarDashEatsComDrawer(context),
       endDrawer: AppDrawer(),
-      body: ListView(children: [
-        Column(children: [
-          titulo("Categorias"),
-          carroselCategorias(),
-        ]),
-        Padding(
-          padding: const EdgeInsets.all(40),
-          child: PesquisaBarra(txt),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 30),
-          child: titulo("Recomendados"),
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: carroselRecomendados(),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 30, top: 40),
-          child: titulo("Estabelecimentos"),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 30),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: carroselEstabelecimentos(),
-          ),
-        ),
-      ]),
+      body: FutureBuilder<String>(
+        future: loginController().usuarioLogado(),
+        builder: (context, snapshot) {
+          if(snapshot.connectionState== ConnectionState.done){
+          return ListView(children: [
+            Column(children: [
+              titulo("Categorias"),
+              carroselCategorias(),
+            ]),
+            Padding(
+              padding: const EdgeInsets.all(40),
+              child: PesquisaBarra(txt),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: titulo("Recomendados"),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: carroselRecomendados(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, top: 40),
+              child: titulo("Estabelecimentos"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: carroselEstabelecimentos(),
+              ),
+            ),
+          ] );};
+           return Text('Não foi possivel encontrar dados');
+        }
+      ),
       bottomNavigationBar: rodape(),
     );
   }
@@ -247,6 +255,7 @@ class AppDrawer extends StatelessWidget {
               leading: const Icon(Icons.door_back_door_outlined),
               title: const Text('Sair'),
               onTap: () {
+                loginController().logout();
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     'login', (Route<dynamic> route) => false);
               },

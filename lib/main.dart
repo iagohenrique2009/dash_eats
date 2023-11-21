@@ -1,3 +1,4 @@
+import "package:dash_eats/firebase_options.dart";
 import "package:dash_eats/view/cadastrarEmpresa.dart";
 import "package:dash_eats/view/cadastro.dart";
 import "package:dash_eats/view/carrinho.dart";
@@ -11,6 +12,7 @@ import "package:dash_eats/view/pesquisa.dart";
 import "package:dash_eats/view/produto.dart";
 import "package:dash_eats/view/sobre.dart";
 import "package:dash_eats/view/trocarsenha.dart";
+import "package:firebase_core/firebase_core.dart";
 import 'package:flutter/material.dart';
 import "package:device_preview/device_preview.dart";
 import 'package:collection/collection.dart';
@@ -18,8 +20,11 @@ import 'package:collection/collection.dart';
 
 import "view/login.dart";
 
-void main() {
-  //iniciar a execução do App
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     DevicePreview(
       enabled: true,

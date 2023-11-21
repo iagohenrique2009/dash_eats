@@ -1,3 +1,4 @@
+import 'package:dash_eats/controller/login_controller.dart';
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:dash_eats/view/login.dart';
 import 'package:dash_eats/view/trocarsenha.dart';
@@ -46,45 +47,6 @@ class Login extends StatelessWidget {
   Login(this.log);
 
 
-  void _mostrarAlertDialog(BuildContext context, String mensagem) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Erro de validação'),
-          content: Text(mensagem),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-
-void fazerLogin(BuildContext context){ 
-
-          String username = log.text;
-          String password = senha.text;
-
-  dadosCadastro? usuario = dadosCadastrados.firstWhereOrNull(
-      (u) => u.email == username,
-    );
-   if (usuario == null) {
-      _mostrarAlertDialog(context, 'email não existe!');
-      return;
-    }
-    else{
-      Navigator.push(context,  MaterialPageRoute(
-      builder: (context) => trocarSenhaView(email: 'Hello',),
-    ));
-    }
-}
 
   TextEditingController log = TextEditingController();
   TextEditingController senha = TextEditingController();
@@ -95,7 +57,7 @@ void fazerLogin(BuildContext context){
         onPressed: () {
           String username = log.text;
           String password = senha.text;
-          fazerLogin(build);
+          loginController().esqueceuSenha(build, username);
           print('Username: $username');
         },
         style: ElevatedButton.styleFrom(
@@ -106,39 +68,6 @@ void fazerLogin(BuildContext context){
             minimumSize: Size(20, 50)),
         child: Text(
           'Restaurar a Senha',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w400,
-            height: 0,
-          ),
-        ));
-  }
-}
-
-class EsqueceuSenha extends StatelessWidget {
-  EsqueceuSenha(this.email);
-
-  TextEditingController email = TextEditingController();
-  @override
-  Widget build(BuildContext build) {
-    return ElevatedButton(
-        onPressed: () {
-
-          String emailString = email.text;
-
-          print(
-              'Email: $emailString');
-        },
-        style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(50.0),
-            ),
-            minimumSize: Size(20, 60)),
-        child: Text(
-          'Criar Conta',
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
