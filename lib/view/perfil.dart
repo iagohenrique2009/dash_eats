@@ -3,6 +3,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dash_eats/controller/login_controller.dart';
 import 'package:dash_eats/view/inicio.dart';
 import 'package:dash_eats/view/login.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +25,29 @@ class perfilView extends StatelessWidget {
   const perfilView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBarDashEatsComDrawer(context),
       endDrawer: AppDrawer(),
-      body: ListView(
-        children: [
-          Center(
-              child: Padding(
-            padding: EdgeInsets.only(top: 20),
-            child: CustomWidget(),
-          )),
-            Padding(
+      body: 
+      StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('enderecos')
+            .where("uid", isEqualTo: loginController().idUsuario())
+            .snapshots(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data!.docs.length > 0) {
+              
+              final endereco = snapshot.data!.docs[0];
+              ListView(
+                children: [
+                  Center(
+                    child: Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CustomWidget(),
+                  )),
+              Padding(
               padding:  EdgeInsets.only(top:50,left: 40,bottom: 30),
               child: endereco(),
             ),
@@ -52,7 +65,15 @@ class perfilView extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      );
+
+            }
+          }
+          return Text("");
+        }
+        ),
+      
+      
       bottomNavigationBar: rodape(),
     );
   }
@@ -234,3 +255,4 @@ class editarNome extends StatelessWidget {
     );
   }
 }
+

@@ -1,7 +1,9 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:dash_eats/controller/login_controller.dart';
 import 'package:dash_eats/view/cadastro.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -203,6 +205,7 @@ class BotaoLoginRedes extends StatelessWidget {
 
 class InputField extends StatelessWidget {
   InputField(this.texto, this.textoControle);
+  late FirebaseFirestore db;
 
   TextEditingController textoControle = TextEditingController();
   final String texto;

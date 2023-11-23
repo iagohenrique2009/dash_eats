@@ -1,3 +1,6 @@
+// ignore_for_file: camel_case_types, unnecessary_brace_in_string_interps
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:dash_eats/view/perfil.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +51,7 @@ class editEndView extends StatelessWidget {
                       ),
 
                       onPressed: () {
-
+                        
                         enderecoValores.bairro = baiController.text;
                         enderecoValores.rua = ruaController.text;
                         enderecoValores.numero = nController.text;
@@ -73,3 +76,45 @@ class editEndView extends StatelessWidget {
   }
 }
 
+
+class endereco {
+  final String bairro;
+  final String rua;
+  final String numero;
+  final String complemento;
+
+  endereco(this.bairro, this.rua, this.numero, this.complemento);
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'bairro': bairro,
+      'rua': rua,
+      'numero': numero,
+      'complemento': complemento
+      
+    };
+  }
+
+  factory endereco.fromJson(Map<String, dynamic> json) {
+    return endereco(
+      json['bairro'],
+      json['rua'],
+      json['numero'],
+      json['complemento'],
+    );
+  }
+}
+
+void endAdicionar (context, endereco t){
+  FirebaseFirestore.instance
+            .collection('enderecos') 
+            .add(t.toJson())
+            .then(
+              (value) => mostrarAlertDialog(context,  'Endereço modificado com sucesso', 'Sucesso'),
+              )
+            .catchError(
+              (error) => mostrarAlertDialog(context, 'Erro ao adicionar endereço: ${error}', 'Erro'), 
+              )
+              .whenComplete(
+                () => Navigator.pushNamed(context, 'perfil'));
+}
