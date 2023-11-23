@@ -90,8 +90,8 @@ AppBar AppBarDashEatsComDrawer(BuildContext context) {
 
 class PesquisaBarra extends StatelessWidget {
   PesquisaBarra(this.textoControle);
-
-  TextEditingController textoControle = TextEditingController();
+TextEditingController textoControle = TextEditingController();
+  
   @override
   Widget build(BuildContext build) {
     return Opacity(
@@ -99,7 +99,12 @@ class PesquisaBarra extends StatelessWidget {
       child: TextField(
         controller: textoControle,
         onSubmitted: (textoControle) {
-          Navigator.pushNamed(build, 'pesquisa');
+          Navigator.push(
+              build,
+              MaterialPageRoute(
+                builder: (context) => pesquisaView(
+                  query: textoControle,
+                )));
         },
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(

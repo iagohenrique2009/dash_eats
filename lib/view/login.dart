@@ -29,7 +29,7 @@ class loginView extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: InputField("Senha", txtController2),
+              child: InputFieldSenha("Senha", txtController2),
             ),
             Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
@@ -235,6 +235,39 @@ class InputField extends StatelessWidget {
   }
 }
 
+class InputFieldSenha extends StatelessWidget {
+  InputFieldSenha(this.texto, this.textoControle);
+  late FirebaseFirestore db;
+
+  TextEditingController textoControle = TextEditingController();
+  final String texto;
+
+  @override
+  Widget build(BuildContext build) {
+    return Opacity(
+      opacity: 0.4,
+      child: TextFormField(
+        controller: textoControle,
+        obscureText: true,
+        decoration: InputDecoration(
+          hintText: texto,
+          
+          filled: true,
+          fillColor: Color(0xFFD9D9D9),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide(
+              color: Colors.black, 
+              width: 2.0,
+            ),
+          ),
+        ),
+        cursorColor: Colors.black,
+      ),
+    );
+  }
+}
 //// checkbox
 class CheckBoxConectado extends StatefulWidget {
   @override

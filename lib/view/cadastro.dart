@@ -34,7 +34,7 @@ class cadastroView extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: InputField("Senha", txtController4),
+              child: InputFieldSenha("Senha", txtController4),
             ),
             Padding(
               padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -107,8 +107,8 @@ class CadastroUsuario extends StatelessWidget {
           }
           
           cadastrarUsuario(build,username, emailString, document, password);
+          
           Navigator.pushNamed(build,"login");
-          mostrarAlertDialog(build, "Conta criada com sucesso","Sucesso");
           
         },
 

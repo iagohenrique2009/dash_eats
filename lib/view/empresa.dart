@@ -66,7 +66,6 @@ class CompanyProfileWidget extends StatelessWidget {
             child: Text("Cardápio",style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold) ,
             )
           ),
-          MyImageListView(imageUrls: imageUrlsProduto),
         ],
       ),
     );

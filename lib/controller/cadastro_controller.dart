@@ -1,6 +1,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dash_eats/controller/perfil_controller.dart';
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,8 @@ class cadastroController{
         },
       );
 
+      perfil_controller().endereco(context, "", "", "", "", resultado.user!.uid);
       mostrarAlertDialog(context, 'Usuário criado com sucesso.',"Sucesso");
-      Navigator.pop(context);
 
     }).catchError((e) {
       switch (e.code) {

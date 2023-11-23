@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dash_eats/view/inicio.dart';
 import 'package:dash_eats/view/produto.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
@@ -30,20 +32,36 @@ TextEditingController txt = TextEditingController();
         ];
 
 class pesquisaView extends StatelessWidget {
-  const pesquisaView({super.key});
+  final  query;
+
+  const pesquisaView({super.key,  this.query});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarDashEatsComDrawer(context),
       endDrawer: AppDrawer(),
-      body:ListView(children: [
-       Padding(
-          padding: EdgeInsets.only(left: 40, right: 40,top: 5, bottom: 10),
-          child: PesquisaBarra(txt),
-        ),
-        MyImageListView(imageUrls: imageUrls,),
-      ]),
+      body:StreamBuilder<Object>(
+        stream: FirebaseFirestore.instance.collection('produto')
+                        .where('nome', isGreaterThanOrEqualTo: query)
+                        .where('nome', isLessThan: query+ 'z')
+                        .snapshots(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if(snapshot.connectionState ==ConnectionState.active){
+
+           var img_length = snapshot.data!.docs.length;
+           
+            return ListView(children: [
+           Padding(
+              padding: EdgeInsets.only(left: 40, right: 40,top: 5, bottom: 10),
+              child: PesquisaBarra(txt),
+            ),
+            MyImageListView( data: snapshot.requireData ),
+          ]);
+          }
+          return Text("erro");
+        }
+      ),
       bottomNavigationBar: rodape(),
     );
   }
@@ -52,14 +70,16 @@ class pesquisaView extends StatelessWidget {
 
 class MyImageListItem extends StatelessWidget {
   final String imageUrl;
+  final String nome;
+  final double preco;
 
-  MyImageListItem({required this.imageUrl});
+  MyImageListItem({required this.imageUrl, required this.preco, required this.nome});
 
   @override
   Widget build(BuildContext context) {
 
-    var valor =Random().nextInt(10)+20;
-    var produto ='Produto: ${Random().nextInt(5)}';
+    var valor =preco;
+    var produto ='Produto: ${nome}';
 
     return InkWell(
       child: SizedBox(
@@ -84,7 +104,7 @@ class MyImageListItem extends StatelessWidget {
           children: [
             Text(
                     '${produto}',
-                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)),
+                    style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black)),
             Text(
                     'Valor: R\$${valor}' ,
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black)),
@@ -109,18 +129,20 @@ class MyImageListItem extends StatelessWidget {
 }
 
 class MyImageListView extends StatelessWidget {
-  final List<String> imageUrls;
 
-  MyImageListView({required this.imageUrls});
+  final data ;
+
+  MyImageListView( {required this.data});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: EdgeInsets.all(20),
       shrinkWrap: true,
-        itemCount: imageUrls.length,
+        itemCount: data.size,
         itemBuilder: (context, index) {
-          return MyImageListItem(imageUrl: imageUrls[index]);
+          
+          return MyImageListItem(imageUrl: data.docs[index].data()["link_imagem"], preco: data.docs[index].data()["preço"], nome: data.docs[index].data()["nome"]);
         },
       );
   }
@@ -137,7 +159,12 @@ class PesquisaBarra extends StatelessWidget {
       child: TextField(
         controller: textoControle,
         onSubmitted: (textoControle){
-            Navigator.pushNamed(build, 'pesquisa');
+             Navigator.push(
+              build,
+              MaterialPageRoute(
+                builder: (context) => pesquisaView(
+                  query: textoControle,
+                )));
         },
         decoration: InputDecoration(
           hintText: "Pesquise por lanches,pizzas,bebid...",

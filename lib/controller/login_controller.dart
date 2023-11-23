@@ -43,6 +43,23 @@ class loginController{
     return usuario;
   }
 
+    Future<String> usuarioCollection(collection) async {
+      var res="";
+    await FirebaseFirestore.instance
+        .collection(collection)
+        .where('uid', isEqualTo: idUsuario())
+        .get()
+        .then(
+      (resultado) {
+
+        print(resultado.toString());
+        res=resultado.docs[0].id;
+      },
+    );
+    return res;
+  }
+
+
    logout() {
     FirebaseAuth.instance.signOut();
   }

@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, unnecessary_brace_in_string_interps
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dash_eats/controller/perfil_controller.dart';
 import 'package:dash_eats/view/cadastro.dart';
 import 'package:dash_eats/view/perfil.dart';
 import 'package:flutter/material.dart';
@@ -52,14 +53,11 @@ class editEndView extends StatelessWidget {
 
                       onPressed: () {
                         
-                        enderecoValores.bairro = baiController.text;
-                        enderecoValores.rua = ruaController.text;
-                        enderecoValores.numero = nController.text;
-                        enderecoValores.complemento = conController.text;
 
                         
+                        perfil_controller().atualizarEndereco(context, ruaController.text, nController.text, baiController.text, conController.text);
                         Navigator.pushNamed(context, 'perfil');
-                        mostrarAlertDialog(context,"Endereço Atualizado com sucesso","Sucesso");
+                        
                       },
 
                       child: const Text('Salvar Endereço'),      
